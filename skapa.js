@@ -17,6 +17,7 @@ let latexDocument = `
 \\usepackage[a4paper, total={7in}]{geometry}
 
 \\begin{document}
+\\pagenumbering{gobble} 
 `;
 for (let month = 1; month <= 12; month++) {
     let dayOfMonth = dayjs(`2022-${month}-01`)
