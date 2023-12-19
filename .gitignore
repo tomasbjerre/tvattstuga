@@ -1,6 +1,6 @@
-manad.aux
-manad.log
-manad.pdf
+*.aux
+*.log
+*.pdf
 node_modules/
 package-lock.json
-manad.tex
+*.tex

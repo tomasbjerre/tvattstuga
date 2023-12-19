@@ -12,41 +12,45 @@ dayjs.updateLocale('en', {
       ]
   })
 
-let latexDocument = `
-\\documentclass[a4paper]{article}
-\\usepackage[a4paper, total={7in}]{geometry}
+for (let year = 2024; year <= 2030; year++) {
+    let latexDocument = `
+    \\documentclass[a4paper]{article}
+    \\usepackage[a4paper, total={7in}]{geometry}
 
-\\begin{document}
-\\pagenumbering{gobble} 
-`;
-for (let month = 1; month <= 12; month++) {
-    let dayOfMonth = dayjs(`2022-${month}-01`)
-    const latexBefore = `
-\\begin{table}[ht!]
-\\vspace{-10em}%
-\\normalsize
-\\begin{tabular}{lllp{7cm}p{7cm}}
-\\textbf{${dayOfMonth.format('MMMM')}}           & \\multicolumn{2}{l}{\\textbf{2022}}                  & \\textbf{Tvättstuga 1} & \\textbf{Tvättstuga 2} \\\\ \\hline    
-`
+    \\begin{document}
+    \\pagenumbering{gobble} 
+    `;
 
-    latexDocument += latexBefore;
-    while (dayOfMonth.month()+1 == month) {
-        latexDocument += `
-\\multicolumn{1}{|l|}{${dayOfMonth.format('D')}} & \\multicolumn{1}{l|}{fm} & \\multicolumn{1}{l|}{${dayOfMonth.format('dddd')}} & \\multicolumn{1}{l|}{} & \\multicolumn{1}{l|}{} \\\\ \\hline
-\\multicolumn{1}{|l|}{${dayOfMonth.format('D')}} & \\multicolumn{1}{l|}{em} & \\multicolumn{1}{l|}{${dayOfMonth.format('dddd')}} & \\multicolumn{1}{l|}{} & \\multicolumn{1}{l|}{} \\\\ \\hline    
-`
-        dayOfMonth = dayOfMonth.add(1, 'day')
-    }
-    latexDocument += `
-    \\end{tabular}
-    \\end{table}
+    for (let month = 1; month <= 12; month++) {
+        let dayOfMonth = dayjs(`${year}-${month}-01`)
+        const latexBefore = `
+    \\begin{table}[ht!]
+    \\vspace{-10em}%
+    \\normalsize
+    \\begin{tabular}{lllp{7cm}p{7cm}}
+    \\textbf{${dayOfMonth.format('MMMM')}}           & \\multicolumn{2}{l}{\\textbf{${year}}}                  & \\textbf{Tvättstuga 1} & \\textbf{Tvättstuga 2} \\\\ \\hline    
     `
+
+        latexDocument += latexBefore;
+        while (dayOfMonth.month()+1 == month) {
+            latexDocument += `
+    \\multicolumn{1}{|l|}{${dayOfMonth.format('D')}} & \\multicolumn{1}{l|}{fm} & \\multicolumn{1}{l|}{${dayOfMonth.format('dddd')}} & \\multicolumn{1}{l|}{} & \\multicolumn{1}{l|}{} \\\\ \\hline
+    \\multicolumn{1}{|l|}{${dayOfMonth.format('D')}} & \\multicolumn{1}{l|}{em} & \\multicolumn{1}{l|}{${dayOfMonth.format('dddd')}} & \\multicolumn{1}{l|}{} & \\multicolumn{1}{l|}{} \\\\ \\hline    
+    `
+            dayOfMonth = dayOfMonth.add(1, 'day')
+        }
+        latexDocument += `
+        \\end{tabular}
+        \\end{table}
+        `
+    }
+
+    latexDocument += `
+    \\end{document}
+    `
+
+    const filename = `manad-${year}.tex`;
+    console.log(filename)
+    //console.log(latexDocument)
+    fs.writeFileSync(filename, latexDocument)
 }
-
-latexDocument += `
-\\end{document}
-`
-
-console.log(latexDocument)
-
-fs.writeFileSync('manad.tex', latexDocument)
