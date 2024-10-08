@@ -49,7 +49,7 @@ for (let year = 2024; year <= 2030; year++) {
     \\end{document}
     `
 
-    const filename = `manad-${year}.tex`;
+    const filename = `manader/manad-${year}.tex`;
     console.log(filename)
     //console.log(latexDocument)
     fs.writeFileSync(filename, latexDocument)
