@@ -6,11 +6,16 @@ mkdir veckor
 nodejs skapaveckor.js
 
 cd veckor
-for file in *tex; do
-    filename="${file%.*}.pdf"
-    echo $filename
-    #latex $file -o $filename.dvi
-    texi2pdf $file -o $filename > /dev/null 2> /dev/null
+for folder in */ ; do
+    echo "In $folder"
+    cd $folder
+    for texFile in *tex; do
+        filename="${texFile%.*}.pdf"
+        echo " - $filename"
+        #latex $file -o $filename.dvi
+        texi2pdf $texFile -o $filename > /dev/null 2> /dev/null
+    done
+    cd ..
 done
 
-rm *aux *log *tex
+find -name "*aux" -or -name "*log" -or -name "*tex" | xargs rm

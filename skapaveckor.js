@@ -15,7 +15,7 @@ dayjs.updateLocale('en', {
   dayjs.extend(weekOfYear);
   
 let now = dayjs("2024-10-07")
-for (let i = 0; i < 52*100; i++) {
+for (let i = 0; i < 52*10; i++) {
     let vecka = now.week()
     console.log(`Week number: ${vecka}`)
     let year = now.format('YYYY')
