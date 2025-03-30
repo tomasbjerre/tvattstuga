@@ -13,9 +13,10 @@ dayjs.updateLocale('en', {
   })
   var weekOfYear = require("dayjs/plugin/weekOfYear");
   dayjs.extend(weekOfYear);
-  
-let now = dayjs("2025-03-31")
-for (let i = 0; i < 52*5; i++) {
+const years = 5
+const weeksInYear = 52
+let now = dayjs("2024-12-30")
+for (let i = 0; i < weeksInYear * years; i++) {
     let vecka = now.week()
     console.log(`Week number: ${vecka}`)
     let year = now.format('YYYY')

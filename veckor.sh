@@ -15,6 +15,7 @@ for folder in */ ; do
         #latex $file -o $filename.dvi
         texi2pdf $texFile -o $filename > /dev/null 2> /dev/null
     done
+    pdftk *.pdf cat output alla.pdf
     cd ..
 done
 
